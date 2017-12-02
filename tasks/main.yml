@@ -71,7 +71,7 @@
 
 - name: init repositories
   become_user: git
-  command: git init --bare
+  command: git init --bare --shared
   args:
     chdir: "/home/git/repos/{{item}}.git"
     creates: "/home/git/repos/{{item}}.git/HEAD"

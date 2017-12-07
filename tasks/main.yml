@@ -51,7 +51,7 @@
 
 - name: init repositories path
   file:
-    name: /home/git/repos
+    name: "{{git_server_repos_path}}"
     state: directory
     mode: 0755
     owner: git
@@ -60,7 +60,7 @@
 
 - name: create repositories path
   file:
-    name: /home/git/repos/{{item}}.git
+    name: "{{git_server_repos_path}}/{{item}}.git"
     state: directory
     mode: 0755
     owner: git
@@ -73,9 +73,11 @@
   become_user: git
   command: git init --bare --shared
   args:
-    chdir: "/home/git/repos/{{item}}.git"
-    creates: "/home/git/repos/{{item}}.git/HEAD"
+    chdir: "{{git_server_repos_path}}/{{item}}.git"
+    creates: "{{git_server_repos_path}}/{{item}}.git/HEAD"
   with_items:
     - "{{git_server_repos}}"
 
+
+- import_tasks: backups.yml
 

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+BACKUPDIR="{{backups}}/{{inventory_hostname}}/git_server/"
+
+mkdir -p $BACKUPDIR
+
+REPOS=( $@ )
+
+for repo in "${REPOS[@]}"
+do
+  /bin/tar -czf - -C {{git_server_repos_path}}/ $repo.git | \
+    /usr/bin/gpg2 --batch --passphrase-file {{secret}}/backups/pass.txt -c > \
+    $BACKUPDIR/$repo.tar.gz.gpg
+done

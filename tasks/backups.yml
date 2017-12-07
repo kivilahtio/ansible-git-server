@@ -1,0 +1,25 @@
+---
+
+#
+#Debian package requirements are installed in backups-role
+#
+
+- name: Deploy backup cronjob
+  template:
+    src:   git_cron.j2
+    dest:  /etc/cron.d/git_backup
+    owner: root
+    group: root
+    mode:  0640
+  become: yes
+
+- name: Deploy backup script
+  template:
+    src:   git_backups.sh.j2
+    dest:  /usr/local/bin/git_backups.sh
+    owner: root
+    group: root
+    mode:  0755
+  become: yes
+
+

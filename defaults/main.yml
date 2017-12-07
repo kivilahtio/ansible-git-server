@@ -4,3 +4,7 @@
 git_server_ssh_keys: []
 git_server_repos: []
 
+git_server_repos_path: "/home/git/repos"
+
+#TODO: Set the git repo's config file's 'denyNonFastForwards' to false to allow force push
+git_server_denyNonFastForwards: true
